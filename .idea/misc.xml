@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/drawable/historyfolder.xml" value="0.1" />
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/drawable/layout_background.xml" value="0.1259259259259259" />
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/drawable/row_layout.xml" value="0.1" />
         <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/fragment_history.xml" value="0.1" />
-        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/fragment_start.xml" value="0.1" />
-        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/fragment_view_q_r.xml" value="0.1" />
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/fragment_history.xml" value="0.15" />
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/fragment_start.xml" value="0.14" />
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/fragment_view_q_r.xml" value="0.18" />
+        <entry key="..\:/Android_ALL/QRCodeReader/app/src/main/res/layout/row_layout.xml" value="0.22" />
       </map>
     </option>
   </component>

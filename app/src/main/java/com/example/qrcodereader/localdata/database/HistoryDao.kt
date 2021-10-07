@@ -11,13 +11,7 @@ interface HistoryDao {
     suspend fun addHistory(history : HistoryClass)
 
     @Query("SELECT * FROM qrcode_history ORDER by id ASC")
-    fun readAllHistory(): LiveData<List<HistoryClass>>
-
-    @Update
-    suspend fun updateHistory(history : HistoryClass)
-
-    @Delete
-    suspend fun deleteHistory(history : HistoryClass)
+    fun readAllData(): LiveData<List<HistoryClass>>
 
     @Query("DELETE FROM qrcode_history")
     suspend fun deleteAll()

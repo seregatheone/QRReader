@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
@@ -19,9 +20,11 @@ import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.qrcodereader.R
 import com.example.qrcodereader.databinding.FragmentStartBinding
+import com.example.qrcodereader.fragments.viewmodel.HistoryViewModel
 import kotlinx.coroutines.*
+import com.example.qrcodereader.localdata.modelfordb.HistoryClass
 
-class StartFragment() : Fragment() {
+class StartFragment() : Fragment(){
 
     //binding
     private var _binding: FragmentStartBinding? = null
@@ -29,6 +32,8 @@ class StartFragment() : Fragment() {
 
     private lateinit var codeScanner: CodeScanner
 
+    private var _historyViewModel:HistoryViewModel? = null
+    private val historyViewModel get() = _historyViewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +41,10 @@ class StartFragment() : Fragment() {
     ): View? {
 //      Inflate the layout for this fragment
         _binding = FragmentStartBinding.inflate(layoutInflater, container, false)
+        _historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_startFragment_to_historyFragment)
+        }
         checkPermissions()
         startScanning()
         return binding.root
@@ -53,14 +62,19 @@ class StartFragment() : Fragment() {
 
         codeScanner.decodeCallback = DecodeCallback {
             codeScanner.stopPreview()
-            val res = it.text
-            CoroutineScope(Dispatchers.Default).launch{
-//              #TODO добавить пересылку в бд
-//              val timeStamp = it.timestamp
-                val action = StartFragmentDirections.actionStartFragmentToViewQRFragment(res = res)
+            val text = it.text
+            val timestamp = it.timestamp
+            val historyClass = HistoryClass(0,text,timestamp)
+            CoroutineScope(Dispatchers.Default).launch {
+                insertDataToDatabase(historyClass)
+                val action = StartFragmentDirections.actionStartFragmentToViewQRFragment(
+                    historyClass
+                )
                 try {
-                    findNavController().navigate(action)
-                }catch (e:Exception){
+                    withContext(Dispatchers.Main) {
+                        findNavController().navigate(action)
+                    }
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -109,5 +123,9 @@ class StartFragment() : Fragment() {
             else -> Toast.makeText(requireContext(), "Accept denied request", Toast.LENGTH_LONG)
                 .show()
         }
+    }
+    //dataAdding start
+    private fun insertDataToDatabase(historyClass : HistoryClass) {
+        historyViewModel.addHistory(historyClass)
     }
 }

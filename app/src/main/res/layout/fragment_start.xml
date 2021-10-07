@@ -5,10 +5,24 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.StartFragment">
-<com.budiyev.android.codescanner.CodeScannerView
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:src="@drawable/historyfolder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.budiyev.android.codescanner.CodeScannerView
     android:id="@+id/scannerId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:maskColor="#77000000">
-</com.budiyev.android.codescanner.CodeScannerView>
+
+    </com.budiyev.android.codescanner.CodeScannerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
